@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI PR Reviewer</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <h1>🤖 AI PR Reviewer</h1>
+    <p class="subtitle">Reviews generated automatically by Claude on every pull request.</p>
+  </header>
+
+  <main>
+    <div id="status" class="status"></div>
+
+    <table id="reviews-table" class="hidden">
+      <thead>
+        <tr>
+          <th>Repo</th>
+          <th>PR</th>
+          <th>Risk</th>
+          <th>Verdict</th>
+          <th>Summary</th>
+          <th>Reviewed</th>
+        </tr>
+      </thead>
+      <tbody id="reviews-body"></tbody>
+    </table>
+  </main>
+
+  <div id="detail-overlay" class="overlay hidden">
+    <div class="modal">
+      <button id="close-modal" class="close-button" aria-label="Close">&times;</button>
+      <div id="detail-body"></div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "name": "ai-pr-reviewer",
+  "version": "1.0.0",
+  "description": "GitHub webhook bot that reviews pull requests with Claude and posts the review back as a PR comment.",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "test:webhook": "tsx scripts/test-webhook.ts"
+  },
+  "keywords": [
+    "github",
+    "webhook",
+    "claude",
+    "anthropic",
+    "code-review",
+    "pull-request"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.124.0",
+    "@octokit/rest": "^22.0.0",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.23",
+    "@types/node": "^22.18.9",
+    "@types/pg": "^8.15.5",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
