@@ -11,8 +11,17 @@ export function isReviewableEvent(
   payload: unknown,
 ): payload is PullRequestWebhookPayload {
   if (eventName !== "pull_request") return false;
-  const action = (payload as { action?: unknown } | null)?.action;
-  return typeof action === "string" && SUPPORTED_ACTIONS.has(action);
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) return false;
+  const event = payload as Partial<PullRequestWebhookPayload>;
+  const pr = event.pull_request;
+  const repo = event.repository;
+  return typeof event.action === "string" && SUPPORTED_ACTIONS.has(event.action)
+    && Number.isSafeInteger(event.number) && (event.number ?? 0) > 0
+    && !!pr && Number.isSafeInteger(pr.number) && pr.number === event.number
+    && typeof pr.title === "string" && typeof pr.html_url === "string"
+    && !!repo && typeof repo.name === "string" && repo.name.length > 0
+    && typeof repo.full_name === "string" && repo.full_name.length > 0
+    && typeof repo.owner?.login === "string" && repo.owner.login.length > 0;
 }
 
 /**
