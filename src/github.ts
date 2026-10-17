@@ -54,7 +54,11 @@ export async function fetchPullRequestDiff(
   // With mediaType.format = "diff", Octokit types this as the PR object,
   // but at runtime GitHub returns (and the request lib passes through) the
   // raw diff text.
-  return response.data as unknown as string;
+  const diff: unknown = response.data;
+  if (typeof diff !== "string") {
+    throw new Error("GitHub returned a non-text pull request diff");
+  }
+  return diff;
 }
 
 export async function postPullRequestComment(
@@ -71,3 +75,4 @@ export async function postPullRequestComment(
     body,
   });
 }
+
